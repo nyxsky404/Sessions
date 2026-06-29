@@ -34,6 +34,26 @@ class Currency(models.TextChoices):
     USD = "USD", "USD"
 
 
+class SkillLevel(models.TextChoices):
+    BEGINNER = "beginner", "Beginner"
+    INTERMEDIATE = "intermediate", "Intermediate"
+    ADVANCED = "advanced", "Advanced"
+
+
+class AgeRestriction(models.TextChoices):
+    ALL_AGES = "all_ages", "All ages"
+    THIRTEEN = "13+", "13+"
+    SIXTEEN = "16+", "16+"
+    EIGHTEEN = "18+", "18+"
+    TWENTY_ONE = "21+", "21+"
+
+
+class CancellationPolicy(models.TextChoices):
+    FLEXIBLE = "flexible", "Flexible"
+    MODERATE = "moderate", "Moderate"
+    STRICT = "strict", "Strict"
+
+
 class Session(models.Model):
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -57,6 +77,27 @@ class Session(models.Model):
         max_length=10, choices=LocationType.choices, default=LocationType.ONLINE
     )
     location_text = models.CharField(max_length=255, blank=True)  # online meeting link
+    venue_name = models.CharField(max_length=200, blank=True)  # in-person
+    full_address = models.CharField(max_length=300, blank=True)  # in-person
+
+    # Rich detail fields (Fiverr-gig style).
+    skill_level = models.CharField(
+        max_length=15, choices=SkillLevel.choices, default=SkillLevel.BEGINNER
+    )
+    language = models.CharField(max_length=50, default="English")
+    age_restriction = models.CharField(
+        max_length=10, choices=AgeRestriction.choices, default=AgeRestriction.ALL_AGES
+    )
+    cancellation_policy = models.CharField(
+        max_length=10,
+        choices=CancellationPolicy.choices,
+        default=CancellationPolicy.FLEXIBLE,
+    )
+    what_you_will_learn = models.JSONField(default=list, blank=True)
+    agenda = models.JSONField(default=list, blank=True)
+    whats_included = models.JSONField(default=list, blank=True)
+    what_to_bring = models.JSONField(default=list, blank=True)
+    faqs = models.JSONField(default=list, blank=True)  # list[{question, answer}]
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -83,3 +124,14 @@ class Session(models.Model):
     @property
     def seats_remaining(self):
         return max(self.capacity - self.active_bookings_count(), 0)
+
+    @property
+    def review_count(self):
+        return self.reviews.count()
+
+    @property
+    def avg_rating(self):
+        from django.db.models import Avg
+
+        result = self.reviews.aggregate(avg=Avg("rating"))["avg"]
+        return round(result, 1) if result is not None else None
