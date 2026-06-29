@@ -66,6 +66,9 @@ class Session(models.Model):
         max_length=20, choices=Category.choices, default=Category.OTHER
     )
     image = models.ImageField(upload_to="sessions/", blank=True, null=True)
+    # External cover image (e.g. Unsplash) used by seed data; an uploaded
+    # `image` always takes precedence when present.
+    image_url = models.URLField(max_length=500, blank=True)
     price = models.PositiveIntegerField(default=0)
     currency = models.CharField(
         max_length=3, choices=Currency.choices, default=Currency.INR
