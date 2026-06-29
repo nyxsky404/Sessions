@@ -29,6 +29,11 @@ class LocationType(models.TextChoices):
     IN_PERSON = "in_person", "In person"
 
 
+class Currency(models.TextChoices):
+    INR = "INR", "INR"
+    USD = "USD", "USD"
+
+
 class Session(models.Model):
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -41,8 +46,10 @@ class Session(models.Model):
         max_length=20, choices=Category.choices, default=Category.OTHER
     )
     image = models.ImageField(upload_to="sessions/", blank=True, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    currency = models.CharField(max_length=3, default="INR")
+    price = models.PositiveIntegerField(default=0)
+    currency = models.CharField(
+        max_length=3, choices=Currency.choices, default=Currency.INR
+    )
     start_time = models.DateTimeField()
     duration_minutes = models.PositiveIntegerField(default=60)
     capacity = models.PositiveIntegerField(default=1)
