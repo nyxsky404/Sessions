@@ -22,6 +22,11 @@ class User(AbstractUser):
     )
     github_id = models.BigIntegerField(unique=True, null=True, blank=True)
 
+    # Creator profile (shown on the session detail "About the creator" section).
+    bio = models.TextField(blank=True)
+    years_experience = models.PositiveIntegerField(default=0)
+    is_verified = models.BooleanField(default=False)
+
     def __str__(self):
         return self.username or self.email
 
