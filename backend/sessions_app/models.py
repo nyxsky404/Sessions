@@ -9,6 +9,17 @@ class Category(models.TextChoices):
     PHOTOGRAPHY = "photography", "Photography"
     COOKING = "cooking", "Cooking"
     CONSULTATION = "consultation", "Consultation"
+    PROGRAMMING = "programming", "Programming"
+    DESIGN = "design", "Design"
+    BUSINESS = "business", "Business"
+    MARKETING = "marketing", "Marketing"
+    FINANCE = "finance", "Finance"
+    CAREER = "career", "Career"
+    LANGUAGE_LEARNING = "language_learning", "Language Learning"
+    MUSIC = "music", "Music"
+    ART_CRAFTS = "art_crafts", "Art & Crafts"
+    HEALTH_WELLNESS = "health_wellness", "Health & Wellness"
+    GAMING = "gaming", "Gaming"
     OTHER = "other", "Other"
 
 
