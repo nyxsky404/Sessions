@@ -4,6 +4,9 @@ A full-stack marketplace where creators publish bookable sessions (workshops,
 mentoring, fitness, photography, and more) and users browse, book, and pay for
 them.
 
+<img width="1511" height="861" alt="Screenshot 2026-06-30 at 11 06 13 AM" src="https://github.com/user-attachments/assets/d8b177ec-2d03-4125-b8fe-83c70c7a66e6" />
+
+
 ## Features
 
 - GitHub OAuth login (no passwords). JWT access tokens with an httpOnly refresh cookie.
