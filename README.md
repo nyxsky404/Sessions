@@ -69,8 +69,8 @@ Browser ──▶ Nginx (:80)
 1. Clone the repository.
 
    ```bash
-   git clone <repo-url>
-   cd "Ahoum - Fullstack Intern"
+   git clone https://github.com/nyxsky404/Sessions.git
+   cd "Sessions"
    ```
 
 2. Create your environment file from the template and edit the values.
@@ -206,7 +206,3 @@ All routes are prefixed with `/api`.
    Browse the catalog, open a session, and click Book. Free sessions confirm
    immediately; paid sessions go through Stripe checkout. The booking then appears
    in your User Dashboard, where you can cancel it.
-
-## Screenshots
-
-_Add screenshots or a demo GIF here (catalog, session detail, dashboards)._
