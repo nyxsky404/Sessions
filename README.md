@@ -148,6 +148,18 @@ Login uses GitHub OAuth.
 5. Restart the stack. The frontend fetches the authorize URL from the backend, so
    the callback URL must match exactly.
 
+## Stripe Setup
+
+Paid sessions go through Stripe checkout (test mode). To receive webhook events
+locally, forward them with the [Stripe CLI](https://stripe.com/docs/stripe-cli):
+
+```bash
+stripe listen --forward-to localhost/api/payments/webhook/
+```
+
+The command prints a webhook signing secret (`whsec_...`); put it in `.env` as
+`STRIPE_WEBHOOK_SECRET` and restart the stack.
+
 ## API Overview
 
 All routes are prefixed with `/api`.
